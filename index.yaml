@@ -1,21 +1,22 @@
 apiVersion: v1
 entries:
   confluence-server:
-  - apiVersion: v1
-    appVersion: 7.3.5
-    created: "2020-04-19T09:27:56.713923992Z"
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: changed
+          description: "Update Confluence Server image to v7.13.0."
+        - kind: removed
+          description: "Defective templating for extraInitContainers."
+    apiVersion: v2
+    appVersion: 7.13.0
+    created: "2021-09-08T08:38:15.559907095Z"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
-      repository: https://kubernetes-charts.storage.googleapis.com/
-      version: 4.2.2
-    description: Atlassian Confluence Server is where you create, organise and discuss
-      work with your team. Capture the knowledge that's too often lost in email inboxes
-      and shared network drives in Confluence - where it's easy to find, use, and
-      update. Give every team, project, or department its own space to create the
-      things they need, whether it's meeting notes, product requirements, file lists,
-      or project plans, you can get more done in Confluence.
-    digest: ffb2cb49c3046a8ec53c7257d9f5150b20dc6b94a938aea074a9c0d8c6418676
+      repository: https://charts.bitnami.com/bitnami/
+      version: ~10.3.17
+    description: Helm chart for Atlassian Confluence Server.
+    digest: 1872e99db6bbc737d77e8db11411fed3a995e50d3cffb5979492f7a5d2baf9f7
     home: https://www.atlassian.com/software/confluence
     icon: https://is2-ssl.mzstatic.com/image/thumb/Purple113/v4/f6/1f/d8/f61fd8a9-5451-cd1a-8ef0-5b865999bacb/source/256x256bb.jpg
     keywords:
@@ -26,259 +27,115 @@ entries:
     - documentation
     - wiki
     maintainers:
-    - email: steve.hipwell@github.com
+    - email: steve.hipwell@gmail.com
       name: stevehipwell
     name: confluence-server
     sources:
     - https://bitbucket.org/atlassian-docker/docker-atlassian-confluence-server
     - https://hub.docker.com/r/atlassian/confluence-server
+    - https://github.com/stevehipwell/helm-charts/
+    type: application
     urls:
-    - https://github.com/stevehipwell/helm-charts/releases/download/confluence-server-2.0.2/confluence-server-2.0.2.tgz
-    version: 2.0.2
-  - apiVersion: v1
-    appVersion: 7.3.4
-    created: "2020-03-30T11:14:39.220987273Z"
-    dependencies:
-    - condition: postgresql.enabled
-      name: postgresql
-      repository: https://kubernetes-charts.storage.googleapis.com/
-      version: 4.2.2
-    description: Atlassian Confluence Server is where you create, organise and discuss
-      work with your team. Capture the knowledge that's too often lost in email inboxes
-      and shared network drives in Confluence - where it's easy to find, use, and
-      update. Give every team, project, or department its own space to create the
-      things they need, whether it's meeting notes, product requirements, file lists,
-      or project plans, you can get more done in Confluence.
-    digest: 12240ce81ad0ef065bbe0fc5bd8a99aaf54b0392eb8ef0800a877948d51ef3b3
-    home: https://www.atlassian.com/software/confluence
-    icon: https://is2-ssl.mzstatic.com/image/thumb/Purple113/v4/f6/1f/d8/f61fd8a9-5451-cd1a-8ef0-5b865999bacb/source/256x256bb.jpg
+    - https://github.com/mcwarman/helm-charts/releases/download/confluence-server-4.4.0/confluence-server-4.4.0.tgz
+    version: 4.4.0
+  external-dns:
+  - apiVersion: v2
+    appVersion: 0.9.0
+    created: "2021-09-08T08:38:15.713742477Z"
+    deprecated: true
+    description: ExternalDNS synchronizes exposed Kubernetes Services and Ingresses
+      with DNS providers.
+    digest: 1ef65a634689487afcf8cb8fa3253451e73a1632cc1345842a53c192926f7051
+    home: https://github.com/kubernetes-sigs/external-dns/
+    icon: https://github.com/kubernetes-sigs/external-dns/raw/master/img/external-dns.png
     keywords:
-    - confluence
-    - confluence-server
-    - atlassian
-    - agile
-    - documentation
-    - wiki
-    maintainers:
-    - email: steve.hipwell@github.com
-      name: stevehipwell
-    name: confluence-server
+    - kubernetes
+    - external-dns
+    - dns
+    name: external-dns
     sources:
-    - https://bitbucket.org/atlassian-docker/docker-atlassian-confluence-server
-    - https://hub.docker.com/r/atlassian/confluence-server
+    - https://github.com/kubernetes-sigs/external-dns/
+    - https://github.com/stevehipwell/helm-charts/
+    type: application
     urls:
-    - https://github.com/stevehipwell/helm-charts/releases/download/confluence-server-2.0.1/confluence-server-2.0.1.tgz
-    version: 2.0.1
-  - apiVersion: v1
-    appVersion: 7.3.3
-    created: "2020-03-20T09:35:13.237705689Z"
-    description: Atlassian Confluence Server is where you create, organise and discuss
-      work with your team. Capture the knowledge that's too often lost in email inboxes
-      and shared network drives in Confluence - where it's easy to find, use, and
-      update. Give every team, project, or department its own space to create the
-      things they need, whether it's meeting notes, product requirements, file lists,
-      or project plans, you can get more done in Confluence.
-    digest: 792c4c0b231c0cb86461fc7b0a9afd7e0f194e05ef003b9ac74a0f848e354b9e
-    home: https://www.atlassian.com/software/confluence
-    icon: https://is2-ssl.mzstatic.com/image/thumb/Purple113/v4/f6/1f/d8/f61fd8a9-5451-cd1a-8ef0-5b865999bacb/source/256x256bb.jpg
+    - https://github.com/mcwarman/helm-charts/releases/download/external-dns-1.1.3/external-dns-1.1.3.tgz
+    version: 1.1.3
+  fluentd-aggregator:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: changed
+          description: "Update Fluentd Aggregator Docker image to v1.14.0 (Fluentd v1.14.0).
+        - kind: changed
+          description: "Use the policy/v1 API for PodDisruptionBudget if the K8s version supports it."
+    apiVersion: v2
+    appVersion: 1.14.0
+    created: "2021-09-08T08:38:15.847349238Z"
+    description: Helm chart for Fluentd running as an aggregation stateful set.
+    digest: 1128842a2f797a120e28d36cfee7517bdf2de66b0454428303722c0480203836
+    home: https://www.fluentd.org/
+    icon: https://raw.githubusercontent.com/fluent/fluentd-docs/master/public/logo/Fluentd_square.png
     keywords:
-    - confluence
-    - confluence-server
-    - atlassian
-    - agile
-    - documentation
-    - wiki
+    - fluent
+    - fluentd
+    - logging
     maintainers:
-    - email: steve.hipwell@github.com
+    - email: steve.hipwell@gmail.com
       name: stevehipwell
-    name: confluence-server
+    name: fluentd-aggregator
     sources:
-    - https://bitbucket.org/atlassian-docker/docker-atlassian-confluence-server
-    - https://hub.docker.com/r/atlassian/confluence-server
+    - https://github.com/stevehipwell/fluentd-aggregator
+    - https://hub.docker.com/r/stevehipwell/fluentd-aggregator
+    - https://github.com/stevehipwell/helm-charts/
+    type: application
     urls:
-    - https://github.com/stevehipwell/helm-charts/releases/download/confluence-server-2.0.0/confluence-server-2.0.0.tgz
-    version: 2.0.0
-  - apiVersion: v1
-    appVersion: 7.3.3
-    created: "2020-03-16T19:28:42.599705873Z"
-    description: Atlassian Confluence Server is where you create, organise and discuss
-      work with your team. Capture the knowledge that's too often lost in email inboxes
-      and shared network drives in Confluence - where it's easy to find, use, and
-      update. Give every team, project, or department its own space to create the
-      things they need, whether it's meeting notes, product requirements, file lists,
-      or project plans, you can get more done in Confluence.
-    digest: 27e0c3aa9de76fd1004169f03cd8aec0b4afeb8c340409b2486504157f11004c
-    home: https://www.atlassian.com/software/confluence
-    icon: https://is2-ssl.mzstatic.com/image/thumb/Purple113/v4/f6/1f/d8/f61fd8a9-5451-cd1a-8ef0-5b865999bacb/source/256x256bb.jpg
+    - https://github.com/mcwarman/helm-charts/releases/download/fluentd-aggregator-2.6.0/fluentd-aggregator-2.6.0.tgz
+    version: 2.6.0
+  istio-operator:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: changed
+          description: "Update Istio version to v1.11.2."
+    apiVersion: v2
+    appVersion: 1.11.2
+    created: "2021-09-08T08:38:15.996308766Z"
+    description: Helm chart for the Istio Operator.
+    digest: f11c7ce726a82b3de5e8541096d488ef90568dc70e8afd24754eb1daf5d8b1fb
+    home: https://istio.io/
+    icon: https://istio.io/latest/favicons/android-192x192.png
     keywords:
-    - confluence
-    - confluence-server
-    - atlassian
-    - agile
-    - documentation
-    - wiki
+    - kubernetes
+    - istio
+    - operator
+    - service
+    - mesh
     maintainers:
-    - email: steve.hipwell@github.com
+    - email: steve.hipwell@gmail.com
       name: stevehipwell
-    name: confluence-server
+    name: istio-operator
     sources:
-    - https://bitbucket.org/atlassian-docker/docker-atlassian-confluence-server
-    - https://hub.docker.com/r/atlassian/confluence-server
+    - https://github.com/istio/istio/tree/master/operator
+    - https://github.com/stevehipwell/helm-charts/
+    type: application
     urls:
-    - https://github.com/stevehipwell/helm-charts/releases/download/confluence-server-1.4.1/confluence-server-1.4.1.tgz
-    version: 1.4.1
-  - apiVersion: v1
-    appVersion: 7.3.2
-    created: "2020-02-25T08:26:31.70562065Z"
-    description: Atlassian Confluence Server is where you create, organise and discuss
-      work with your team. Capture the knowledge that's too often lost in email inboxes
-      and shared network drives in Confluence - where it's easy to find, use, and
-      update. Give every team, project, or department its own space to create the
-      things they need, whether it's meeting notes, product requirements, file lists,
-      or project plans, you can get more done in Confluence.
-    digest: 59141f0d4cc36a0e9a36bd1e187362667ccfcab4af28d0f2ab412145c5f25026
-    home: https://www.atlassian.com/software/confluence
-    icon: https://is2-ssl.mzstatic.com/image/thumb/Purple113/v4/f6/1f/d8/f61fd8a9-5451-cd1a-8ef0-5b865999bacb/source/256x256bb.jpg
-    keywords:
-    - confluence
-    - confluence-server
-    - atlassian
-    - agile
-    - documentation
-    - wiki
-    maintainers:
-    - email: steve.hipwell@github.com
-      name: stevehipwell
-    name: confluence-server
-    sources:
-    - https://bitbucket.org/atlassian-docker/docker-atlassian-confluence-server
-    - https://hub.docker.com/r/atlassian/confluence-server
-    urls:
-    - https://github.com/stevehipwell/helm-charts/releases/download/confluence-server-1.4.0/confluence-server-1.4.0.tgz
-    version: 1.4.0
-  - apiVersion: v1
-    appVersion: 7.3.1
-    created: "2020-02-20T16:03:55.654027949Z"
-    description: Atlassian Confluence Server is where you create, organise and discuss
-      work with your team. Capture the knowledge that's too often lost in email inboxes
-      and shared network drives in Confluence - where it's easy to find, use, and
-      update. Give every team, project, or department its own space to create the
-      things they need, whether it's meeting notes, product requirements, file lists,
-      or project plans, you can get more done in Confluence.
-    digest: 15484e959dc33bd82ad9d05525e650049d2efcc22d5f745cf6361f242ba7f1f5
-    home: https://www.atlassian.com/software/confluence
-    icon: https://is2-ssl.mzstatic.com/image/thumb/Purple113/v4/f6/1f/d8/f61fd8a9-5451-cd1a-8ef0-5b865999bacb/source/256x256bb.jpg
-    keywords:
-    - confluence
-    - confluence-server
-    - atlassian
-    - agile
-    - documentation
-    - wiki
-    maintainers:
-    - email: steve.hipwell@github.com
-      name: stevehipwell
-    name: confluence-server
-    sources:
-    - https://bitbucket.org/atlassian-docker/docker-atlassian-confluence-server
-    - https://hub.docker.com/r/atlassian/confluence-server
-    urls:
-    - https://github.com/stevehipwell/helm-charts/releases/download/confluence-server-1.3.2/confluence-server-1.3.2.tgz
-    version: 1.3.2
-  - apiVersion: v1
-    appVersion: 7.3.1
-    created: "2020-02-13T06:45:09.418570039Z"
-    description: Atlassian Confluence Server is where you create, organise and discuss
-      work with your team. Capture the knowledge that's too often lost in email inboxes
-      and shared network drives in Confluence - where it's easy to find, use, and
-      update. Give every team, project, or department its own space to create the
-      things they need, whether it's meeting notes, product requirements, file lists,
-      or project plans, you can get more done in Confluence.
-    digest: 029df99a9d4a6b57e30f8130f01ecfcf639b0e4f168e2b973ae72632f2da7500
-    home: https://www.atlassian.com/software/confluence
-    icon: https://is2-ssl.mzstatic.com/image/thumb/Purple113/v4/f6/1f/d8/f61fd8a9-5451-cd1a-8ef0-5b865999bacb/source/256x256bb.jpg
-    keywords:
-    - confluence
-    - confluence-server
-    - atlassian
-    - agile
-    - documentation
-    - wiki
-    maintainers:
-    - email: steve.hipwell@github.com
-      name: stevehipwell
-    name: confluence-server
-    sources:
-    - https://bitbucket.org/atlassian-docker/docker-atlassian-confluence-server
-    - https://hub.docker.com/r/atlassian/confluence-server
-    urls:
-    - https://github.com/stevehipwell/helm-charts/releases/download/confluence-server-1.3.1/confluence-server-1.3.1.tgz
-    version: 1.3.1
-  - apiVersion: v1
-    appVersion: 7.3.1
-    created: "2020-02-12T13:53:39.088783862Z"
-    description: Atlassian Confluence Server is where you create, organise and discuss
-      work with your team. Capture the knowledge that's too often lost in email inboxes
-      and shared network drives in Confluence - where it's easy to find, use, and
-      update. Give every team, project, or department its own space to create the
-      things they need, whether it's meeting notes, product requirements, file lists,
-      or project plans, you can get more done in Confluence.
-    digest: b4d557695ce33454198cd72cd2b73c00b8a3b7af19eb1a1b2f481d94fade1303
-    home: https://www.atlassian.com/software/confluence
-    icon: https://is2-ssl.mzstatic.com/image/thumb/Purple113/v4/f6/1f/d8/f61fd8a9-5451-cd1a-8ef0-5b865999bacb/source/256x256bb.jpg
-    keywords:
-    - confluence
-    - confluence-server
-    - atlassian
-    - agile
-    - documentation
-    - wiki
-    maintainers:
-    - email: steve.hipwell@github.com
-      name: stevehipwell
-    name: confluence-server
-    sources:
-    - https://bitbucket.org/atlassian-docker/docker-atlassian-confluence-server
-    - https://hub.docker.com/r/atlassian/confluence-server
-    urls:
-    - https://github.com/stevehipwell/helm-charts/releases/download/confluence-server-1.3.0/confluence-server-1.3.0.tgz
-    version: 1.3.0
-  - apiVersion: v1
-    appVersion: 7.3.1
-    created: "2020-02-07T10:14:55.785256724Z"
-    description: Atlassian Confluence Server is where you create, organise and discuss
-      work with your team. Capture the knowledge that's too often lost in email inboxes
-      and shared network drives in Confluence - where it's easy to find, use, and
-      update. Give every team, project, or department its own space to create the
-      things they need, whether it's meeting notes, product requirements, file lists,
-      or project plans, you can get more done in Confluence.
-    digest: 8ca3d1ce802146c777a9b846136547f29dea0017077c2051fc9f66a72f067b28
-    home: https://www.atlassian.com/software/confluence
-    icon: https://is2-ssl.mzstatic.com/image/thumb/Purple113/v4/f6/1f/d8/f61fd8a9-5451-cd1a-8ef0-5b865999bacb/source/256x256bb.jpg
-    keywords:
-    - confluence
-    - confluence-server
-    - atlassian
-    - agile
-    - documentation
-    - wiki
-    maintainers:
-    - email: steve.hipwell@github.com
-      name: stevehipwell
-    name: confluence-server
-    sources:
-    - https://bitbucket.org/atlassian-docker/docker-atlassian-confluence-server
-    - https://hub.docker.com/r/atlassian/confluence-server
-    urls:
-    - https://github.com/stevehipwell/helm-charts/releases/download/confluence-server-1.2.0/confluence-server-1.2.0.tgz
-    version: 1.2.0
+    - https://github.com/mcwarman/helm-charts/releases/download/istio-operator-2.3.2/istio-operator-2.3.2.tgz
+    version: 2.3.2
   jira-software:
-  - apiVersion: v1
-    appVersion: 8.8.0
-    created: "2020-03-20T09:35:13.311246005Z"
-    description: Atlassian Jira Software is built for every member of your software
-      team to plan, track, and release great software.
-    digest: 7b45804fde10298efb492367dc41a66d1e2e80aa7da11c78a7852b6af5139f4f
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: changed
+          description: "Update Jira Software image to v8.19.0."
+        - kind: changed
+          description: "Update embedded PostgreSQL chart to v10.9.4 (PostgreSQL v11.13.0)."
+    apiVersion: v2
+    appVersion: 8.19.0
+    created: "2021-09-08T08:38:16.144953192Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami/
+      version: ~10.9.4
+    description: Helm chart for Atlassian Jira Software.
+    digest: c4be7d27e16afe934dd9cf906b9f7ad479b4fe8a626d3381c21eaaf0d84e18f8
     home: https://www.atlassian.com/software/jira
     icon: https://wac-cdn.atlassian.com/dam/jcr:b544631f-b225-441b-9e05-57b7fd0d495b/Jira%20Software@2x-icon-blue.png
     keywords:
@@ -289,148 +146,57 @@ entries:
     - project
     - management
     maintainers:
-    - email: steve.hipwell@github.com
+    - email: steve.hipwell@gmail.com
       name: stevehipwell
     name: jira-software
     sources:
-    - https://bitbucket.org/atlassian-docker/docker-atlassian-jira-software
-    - https://hub.docker.com/r/atlassian/jira-software
+    - https://bitbucket.org/atlassian-docker/docker-atlassian-jira/
+    - https://hub.docker.com/r/atlassian/jira-software/
+    - https://github.com/stevehipwell/helm-charts/
+    type: application
     urls:
-    - https://github.com/stevehipwell/helm-charts/releases/download/jira-software-2.0.0/jira-software-2.0.0.tgz
-    version: 2.0.0
-  - apiVersion: v1
-    appVersion: 8.8.0
-    created: "2020-03-19T17:05:30.326389606Z"
-    description: Atlassian Jira Software is built for every member of your software
-      team to plan, track, and release great software.
-    digest: 5e5a0b34daf701509f896f511d75529c3e7dfaec9476c6a6aed6a132fafec2b7
-    home: https://www.atlassian.com/software/jira
-    icon: https://wac-cdn.atlassian.com/dam/jcr:b544631f-b225-441b-9e05-57b7fd0d495b/Jira%20Software@2x-icon-blue.png
+    - https://github.com/mcwarman/helm-charts/releases/download/jira-software-4.7.0/jira-software-4.7.0.tgz
+    version: 4.7.0
+  metrics-server:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: changed
+          description: "Use the policy/v1 API for PodDisruptionBudget if the K8s version supports it."
+    apiVersion: v2
+    appVersion: 0.5.0
+    created: "2021-09-08T08:38:16.283475106Z"
+    description: Metrics Server is a scalable, efficient source of container resource
+      metrics for Kubernetes built-in autoscaling pipelines.
+    digest: 3d3974f2e1a14643b5f8781993ee60afdc55bfd18c59f0a2aab2400f649d0350
+    home: https://github.com/kubernetes-sigs/metrics-server
+    icon: https://avatars.githubusercontent.com/u/36015203?s=400&v=4
     keywords:
-    - jira
-    - jira-software
-    - atlassian
-    - agile
-    - project
-    - management
+    - kubernetes
+    - metrics-server
+    - metrics
     maintainers:
-    - email: steve.hipwell@github.com
+    - email: steve.hipwell@gmail.com
       name: stevehipwell
-    name: jira-software
+    name: metrics-server
     sources:
-    - https://bitbucket.org/atlassian-docker/docker-atlassian-jira-software
-    - https://hub.docker.com/r/atlassian/jira-software
+    - https://github.com/kubernetes-sigs/metrics-server/
+    - https://github.com/stevehipwell/helm-charts/
+    type: application
     urls:
-    - https://github.com/stevehipwell/helm-charts/releases/download/jira-software-1.4.0/jira-software-1.4.0.tgz
-    version: 1.4.0
-  - apiVersion: v1
-    appVersion: 8.7.1
-    created: "2020-02-13T06:45:09.505348117Z"
-    description: Atlassian Jira Software is built for every member of your software
-      team to plan, track, and release great software.
-    digest: 23e9c0d21ee56fbe2cc8191675e982412ae8c2998f15e2835e27783edce90089
-    home: https://www.atlassian.com/software/jira
-    icon: https://wac-cdn.atlassian.com/dam/jcr:b544631f-b225-441b-9e05-57b7fd0d495b/Jira%20Software@2x-icon-blue.png
-    keywords:
-    - jira
-    - jira-software
-    - atlassian
-    - agile
-    - project
-    - management
-    maintainers:
-    - email: steve.hipwell@github.com
-      name: stevehipwell
-    name: jira-software
-    sources:
-    - https://bitbucket.org/atlassian-docker/docker-atlassian-jira-software
-    - https://hub.docker.com/r/atlassian/jira-software
-    urls:
-    - https://github.com/stevehipwell/helm-charts/releases/download/jira-software-1.3.1/jira-software-1.3.1.tgz
-    version: 1.3.1
-  - apiVersion: v1
-    appVersion: 8.7.1
-    created: "2020-02-12T13:53:39.171502473Z"
-    description: Atlassian Jira Software is built for every member of your software
-      team to plan, track, and release great software.
-    digest: 8ec826e0f5d1d1bf676246fdd6d8d803d8daae1eba885c93b3416d2593d08ad2
-    home: https://www.atlassian.com/software/jira
-    icon: https://wac-cdn.atlassian.com/dam/jcr:b544631f-b225-441b-9e05-57b7fd0d495b/Jira%20Software@2x-icon-blue.png
-    keywords:
-    - jira
-    - jira-software
-    - atlassian
-    - agile
-    - project
-    - management
-    maintainers:
-    - email: steve.hipwell@github.com
-      name: stevehipwell
-    name: jira-software
-    sources:
-    - https://bitbucket.org/atlassian-docker/docker-atlassian-jira-software
-    - https://hub.docker.com/r/atlassian/jira-software
-    urls:
-    - https://github.com/stevehipwell/helm-charts/releases/download/jira-software-1.3.0/jira-software-1.3.0.tgz
-    version: 1.3.0
-  - apiVersion: v1
-    appVersion: 8.7.1
-    created: "2020-02-10T17:47:40.287953341Z"
-    description: Atlassian Jira Software is built for every member of your software
-      team to plan, track, and release great software.
-    digest: 3e33e299d63c88bbc57ee795b76a19255a8c2708bc716a6b0faec3cd7c0354c9
-    home: https://www.atlassian.com/software/jira
-    icon: https://wac-cdn.atlassian.com/dam/jcr:b544631f-b225-441b-9e05-57b7fd0d495b/Jira%20Software@2x-icon-blue.png
-    keywords:
-    - jira
-    - jira-software
-    - atlassian
-    - agile
-    - project
-    - management
-    maintainers:
-    - email: steve.hipwell@github.com
-      name: stevehipwell
-    name: jira-software
-    sources:
-    - https://bitbucket.org/atlassian-docker/docker-atlassian-jira-software
-    - https://hub.docker.com/r/atlassian/jira-software
-    urls:
-    - https://github.com/stevehipwell/helm-charts/releases/download/jira-software-1.2.1/jira-software-1.2.1.tgz
-    version: 1.2.1
-  - apiVersion: v1
-    appVersion: 8.7.0
-    created: "2020-02-07T10:14:55.854546367Z"
-    description: Atlassian Jira Software is built for every member of your software
-      team to plan, track, and release great software.
-    digest: 9ef6b8f9d905126bfb2176263cbf016cc5e8314d72e55c5343156921561708ed
-    home: https://www.atlassian.com/software/jira
-    icon: https://wac-cdn.atlassian.com/dam/jcr:b544631f-b225-441b-9e05-57b7fd0d495b/Jira%20Software@2x-icon-blue.png
-    keywords:
-    - jira
-    - jira-software
-    - atlassian
-    - agile
-    - project
-    - management
-    maintainers:
-    - email: steve.hipwell@github.com
-      name: stevehipwell
-    name: jira-software
-    sources:
-    - https://bitbucket.org/atlassian-docker/docker-atlassian-jira-software
-    - https://hub.docker.com/r/atlassian/jira-software
-    urls:
-    - https://github.com/stevehipwell/helm-charts/releases/download/jira-software-1.2.0/jira-software-1.2.0.tgz
-    version: 1.2.0
+    - https://github.com/mcwarman/helm-charts/releases/download/metrics-server-3.4.0/metrics-server-3.4.0.tgz
+    version: 3.4.0
   nexus3:
-  - apiVersion: v1
-    appVersion: 3.22.1
-    created: "2020-04-19T09:12:55.991117083Z"
-    description: Sonatype Nexus OSS is an open source repository manager
-    digest: 4f715a88cbabfaa4155d1d91fa67ae890490e8b81baf54ecb7c990e5ad80333e
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: changed
+          description: "Update Nexus3 image to v3.34.0."
+    apiVersion: v2
+    appVersion: 3.34.0
+    created: "2021-09-08T08:38:16.41369943Z"
+    description: Helm chart for Sonatype Nexus 3 OSS.
+    digest: b6e0e535b924bc77766c3e3d04bc12939fb913a65557e1e1749deed1a785c280
     home: https://www.sonatype.com/nexus-repository-oss
-    icon: http://www.sonatype.org/nexus/content/uploads/2015/06/Nexus-Logo.jpg
+    icon: https://help.sonatype.com/docs/files/331022/34537964/3/1564671303641/NexusRepo_Icon.png
     keywords:
     - artifacts
     - dependency
@@ -439,301 +205,143 @@ entries:
     - nexus
     - repository
     maintainers:
-    - email: steve.hipwell@github.com
+    - email: steve.hipwell@gmail.com
       name: stevehipwell
     name: nexus3
     sources:
     - https://github.com/sonatype/docker-nexus3
     - https://hub.docker.com/r/sonatype/nexus3
+    - https://github.com/stevehipwell/helm-charts/
+    type: application
     urls:
-    - https://github.com/stevehipwell/helm-charts/releases/download/nexus3-2.2.1/nexus3-2.2.1.tgz
-    version: 2.2.1
-  - apiVersion: v1
-    appVersion: 3.22.0
-    created: "2020-03-31T07:53:25.770238144Z"
-    description: Sonatype Nexus OSS is an open source repository manager
-    digest: 9d31e4560f1fec4ae379d5b2d5afe6f58bd382822ba5120db76b3db46a0a0ed9
-    home: https://www.sonatype.com/nexus-repository-oss
-    icon: http://www.sonatype.org/nexus/content/uploads/2015/06/Nexus-Logo.jpg
+    - https://github.com/mcwarman/helm-charts/releases/download/nexus3-4.7.0/nexus3-4.7.0.tgz
+    version: 4.7.0
+  plantuml:
+  - annotations:
+      artifacthub.io/changes: |
+        - Support K8s v1.18 ingress changes
+        - Remove customisable ingress paths per-host as using anything except / would break the PlantUML service
+    apiVersion: v2
+    appVersion: 1.2021.7
+    created: "2021-09-08T08:38:16.59753214Z"
+    description: Helm chart for PlantUML.
+    digest: 4622e96c7481fef434abc9daafd775abc816818ab72486f629a8dd1a37154d1d
+    home: https://plantuml.com/
+    icon: https://kieranborsden.gallerycdn.vsassets.io/extensions/kieranborsden/plantumllanguageservice/1.1.5.1/1556620084743/Microsoft.VisualStudio.Services.Icons.Default
     keywords:
-    - artifacts
-    - dependency
-    - management
-    - sonatype
-    - nexus
-    - repository
+    - plantuml
+    - diagram
+    - uml
+    - sequence
     maintainers:
-    - email: steve.hipwell@github.com
+    - email: steve.hipwell@gmail.com
       name: stevehipwell
-    name: nexus3
+    name: plantuml
     sources:
-    - https://github.com/sonatype/docker-nexus3
-    - https://hub.docker.com/r/sonatype/nexus3
+    - https://github.com/plantuml/plantuml-server/
+    - https://github.com/stevehipwell/helm-charts/
+    type: application
     urls:
-    - https://github.com/stevehipwell/helm-charts/releases/download/nexus3-2.2.0/nexus3-2.2.0.tgz
-    version: 2.2.0
-  - apiVersion: v1
-    appVersion: 3.21.2
-    created: "2020-03-30T07:23:23.850515379Z"
-    description: Sonatype Nexus OSS is an open source repository manager
-    digest: 9bba8da8a1cbf85e8f003e0234fb169f664691c55242fc73f573142e66e0bb17
-    home: https://www.sonatype.com/nexus-repository-oss
-    icon: http://www.sonatype.org/nexus/content/uploads/2015/06/Nexus-Logo.jpg
+    - https://github.com/mcwarman/helm-charts/releases/download/plantuml-3.0.0/plantuml-3.0.0.tgz
+    version: 3.0.0
+  sonarqube:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: changed
+          description: "Update SonarQube image to v9.0.1."
+    apiVersion: v2
+    appVersion: 9.0.1
+    created: "2021-09-08T08:38:16.743628837Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami/
+      version: ~10.3.17
+    description: A Helm chart for deploying SonarQube.
+    digest: acfd6e51e1d4f373d30169625a14663eeb0f99be315fa56dc8d68c490fa27a85
+    home: https://www.sonarqube.org/
+    icon: https://pbs.twimg.com/profile_images/1224335491899760641/h404B5dU_400x400.jpg
     keywords:
-    - artifacts
-    - dependency
-    - management
-    - sonatype
-    - nexus
-    - repository
+    - sonarqube
+    - sast
+    - analysis
+    - security
+    - code
+    - coverage
+    - quality
     maintainers:
-    - email: steve.hipwell@github.com
+    - email: steve.hipwell@gmail.com
       name: stevehipwell
-    name: nexus3
+    name: sonarqube
     sources:
-    - https://github.com/sonatype/docker-nexus3
-    - https://hub.docker.com/r/sonatype/nexus3
+    - https://github.com/SonarSource/sonarqube/
+    - https://github.com/SonarSource/docker-sonarqube/
+    - https://github.com/stevehipwell/helm-charts/
+    type: application
     urls:
-    - https://github.com/stevehipwell/helm-charts/releases/download/nexus3-2.1.0/nexus3-2.1.0.tgz
-    version: 2.1.0
-  - apiVersion: v1
-    appVersion: 3.21.2
-    created: "2020-03-24T15:28:12.701206669Z"
-    description: Sonatype Nexus OSS is an open source repository manager
-    digest: 324fdd99c8fc5f018742ec236f46606749a82a01861ddeb186db8f087731178b
-    home: https://www.sonatype.com/nexus-repository-oss
-    icon: http://www.sonatype.org/nexus/content/uploads/2015/06/Nexus-Logo.jpg
+    - https://github.com/mcwarman/helm-charts/releases/download/sonarqube-4.0.0/sonarqube-4.0.0.tgz
+    version: 4.0.0
+  thanos:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: changed
+          description: "Fix ingress."
+    apiVersion: v2
+    appVersion: 0.22.0
+    created: "2021-09-08T08:38:16.889250329Z"
+    description: Helm chart for Thanos components.
+    digest: e0bbc923def29ccb5db006a895236821af4a499fcb0ac7bd4e6f63d512a09821
+    home: https://thanos.io/
+    icon: https://cncf-branding.netlify.app/img/projects/thanos/icon/color/thanos-icon-color.png
     keywords:
-    - artifacts
-    - dependency
-    - management
-    - sonatype
-    - nexus
-    - repository
+    - kubernetes
+    - thanos
+    - prometheus
+    - monitoring
+    - alerting
+    - metrics
     maintainers:
-    - email: steve.hipwell@github.com
+    - email: steve.hipwell@gmail.com
       name: stevehipwell
-    name: nexus3
+    name: thanos
     sources:
-    - https://github.com/sonatype/docker-nexus3
-    - https://hub.docker.com/r/sonatype/nexus3
+    - https://github.com/thanos-io/thanos
+    - https://github.com/thanos-io/kube-thanos
+    - https://github.com/stevehipwell/helm-charts/
+    type: application
     urls:
-    - https://github.com/stevehipwell/helm-charts/releases/download/nexus3-2.0.0/nexus3-2.0.0.tgz
-    version: 2.0.0
-  - apiVersion: v1
-    appVersion: 3.21.2
-    created: "2020-03-24T11:45:38.926427444Z"
-    description: Sonatype Nexus OSS is an open source repository manager
-    digest: e0234e89f562eb4033c441efefe37c159d5de677ccd3811284f00180b21de4de
-    home: https://www.sonatype.com/nexus-repository-oss
-    icon: http://www.sonatype.org/nexus/content/uploads/2015/06/Nexus-Logo.jpg
+    - https://github.com/mcwarman/helm-charts/releases/download/thanos-0.9.0/thanos-0.9.0.tgz
+    version: 0.9.0
+  tigera-operator:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: changed
+          description: "Use metadata to get operator namespace in env."
+    apiVersion: v2
+    appVersion: 1.21.1
+    created: "2021-09-08T08:38:17.048334768Z"
+    description: Helm chart for the Tigera Operator for Calico.
+    digest: df806c92007f2ec6afbde2d826285c406b12b313b6fcc5e20069493ea199a401
+    home: https://www.tigera.io/
+    icon: https://tigera.io/wp-content/uploads/2021/05/cropped-tigera-icon-1.png
     keywords:
-    - artifacts
-    - dependency
-    - management
-    - sonatype
-    - nexus
-    - repository
+    - kubernetes
+    - calico
+    - tigera
+    - operator
+    - network
+    - policy
+    - plugin
     maintainers:
-    - email: steve.hipwell@github.com
+    - email: steve.hipwell@gmail.com
       name: stevehipwell
-    name: nexus3
+    name: tigera-operator
     sources:
-    - https://github.com/sonatype/docker-nexus3
-    - https://hub.docker.com/r/sonatype/nexus3
+    - https://github.com/tigera/operator
+    - https://github.com/projectcalico/calico
+    - https://github.com/stevehipwell/helm-charts/
+    type: application
     urls:
-    - https://github.com/stevehipwell/helm-charts/releases/download/nexus3-1.3.2/nexus3-1.3.2.tgz
-    version: 1.3.2
-  - apiVersion: v1
-    appVersion: 3.21.1
-    created: "2020-02-25T08:26:31.794151152Z"
-    description: Sonatype Nexus OSS is an open source repository manager
-    digest: 63aea3a9a4d1229e21bd21f8b2cca619a7c1326bfd6d1328eb8d8c20895bc5a4
-    home: https://www.sonatype.com/nexus-repository-oss
-    icon: http://www.sonatype.org/nexus/content/uploads/2015/06/Nexus-Logo.jpg
-    keywords:
-    - artifacts
-    - dependency
-    - management
-    - sonatype
-    - nexus
-    - repository
-    maintainers:
-    - email: steve.hipwell@github.com
-      name: stevehipwell
-    name: nexus3
-    sources:
-    - https://github.com/sonatype/docker-nexus3
-    - https://hub.docker.com/r/sonatype/nexus3
-    urls:
-    - https://github.com/stevehipwell/helm-charts/releases/download/nexus3-1.3.1/nexus3-1.3.1.tgz
-    version: 1.3.1
-  - apiVersion: v1
-    appVersion: 3.21.1
-    created: "2020-02-20T16:03:55.798891691Z"
-    description: Sonatype Nexus OSS is an open source repository manager
-    digest: 9f4bcab70f77403529dfd9768f97aabfc1488e6f073f70343073c5672aaca621
-    home: https://www.sonatype.com/nexus-repository-oss
-    icon: http://www.sonatype.org/nexus/content/uploads/2015/06/Nexus-Logo.jpg
-    keywords:
-    - artifacts
-    - dependency
-    - management
-    - sonatype
-    - nexus
-    - repository
-    maintainers:
-    - email: steve.hipwell@github.com
-      name: stevehipwell
-    name: nexus3
-    sources:
-    - https://github.com/sonatype/docker-nexus3
-    - https://hub.docker.com/r/sonatype/nexus3
-    urls:
-    - https://github.com/stevehipwell/helm-charts/releases/download/nexus3-1.3.0/nexus3-1.3.0.tgz
-    version: 1.3.0
-  - apiVersion: v1
-    appVersion: 3.20.1
-    created: "2020-02-14T07:43:55.131118433Z"
-    description: Sonatype Nexus OSS is an open source repository manager
-    digest: f49020efd8b29aa9d871fbee64718d355fab01ec560290a2ec8f13a56ec1144f
-    home: https://www.sonatype.com/nexus-repository-oss
-    icon: http://www.sonatype.org/nexus/content/uploads/2015/06/Nexus-Logo.jpg
-    keywords:
-    - artifacts
-    - dependency
-    - management
-    - sonatype
-    - nexus
-    - repository
-    maintainers:
-    - email: steve.hipwell@github.com
-      name: stevehipwell
-    name: nexus3
-    sources:
-    - https://github.com/sonatype/docker-nexus3
-    - https://hub.docker.com/r/sonatype/nexus3
-    urls:
-    - https://github.com/stevehipwell/helm-charts/releases/download/nexus3-1.2.4/nexus3-1.2.4.tgz
-    version: 1.2.4
-  - apiVersion: v1
-    appVersion: 3.20.1
-    created: "2020-02-14T07:22:42.591957581Z"
-    description: Sonatype Nexus OSS is an open source repository manager
-    digest: dc82887bed08d0753c8cd39e70ff1e3b8d9b68e74c610a85a7f49ca1b3659337
-    home: https://www.sonatype.com/nexus-repository-oss
-    icon: http://www.sonatype.org/nexus/content/uploads/2015/06/Nexus-Logo.jpg
-    keywords:
-    - artifacts
-    - dependency
-    - management
-    - sonatype
-    - nexus
-    - repository
-    maintainers:
-    - email: steve.hipwell@github.com
-      name: stevehipwell
-    name: nexus3
-    sources:
-    - https://github.com/sonatype/docker-nexus3
-    - https://hub.docker.com/r/sonatype/nexus3
-    urls:
-    - https://github.com/stevehipwell/helm-charts/releases/download/nexus3-1.2.3/nexus3-1.2.3.tgz
-    version: 1.2.3
-  - apiVersion: v1
-    appVersion: 3.20.1
-    created: "2020-02-14T07:03:00.165836048Z"
-    description: Sonatype Nexus OSS is an open source repository manager
-    digest: b25cb8c28bafc482b406db03c694d6410e2117be830ac36e2860111ad9280878
-    home: https://www.sonatype.com/nexus-repository-oss
-    icon: http://www.sonatype.org/nexus/content/uploads/2015/06/Nexus-Logo.jpg
-    keywords:
-    - artifacts
-    - dependency
-    - management
-    - sonatype
-    - nexus
-    - repository
-    maintainers:
-    - email: steve.hipwell@github.com
-      name: stevehipwell
-    name: nexus3
-    sources:
-    - https://github.com/sonatype/docker-nexus3
-    - https://hub.docker.com/r/sonatype/nexus3
-    urls:
-    - https://github.com/stevehipwell/helm-charts/releases/download/nexus3-1.2.2/nexus3-1.2.2.tgz
-    version: 1.2.2
-  - apiVersion: v1
-    appVersion: 3.20.1
-    created: "2020-02-13T06:45:09.584621105Z"
-    description: Sonatype Nexus OSS is an open source repository manager
-    digest: 2d1622778b5021dd97ecc5764bf426ecda230e6bf25b7b8fe748f5a5d5ba4c05
-    home: https://www.sonatype.com/nexus-repository-oss
-    icon: http://www.sonatype.org/nexus/content/uploads/2015/06/Nexus-Logo.jpg
-    keywords:
-    - artifacts
-    - dependency
-    - management
-    - sonatype
-    - nexus
-    - repository
-    maintainers:
-    - email: steve.hipwell@github.com
-      name: stevehipwell
-    name: nexus3
-    sources:
-    - https://github.com/sonatype/docker-nexus3
-    - https://hub.docker.com/r/sonatype/nexus3
-    urls:
-    - https://github.com/stevehipwell/helm-charts/releases/download/nexus3-1.2.1/nexus3-1.2.1.tgz
+    - https://github.com/mcwarman/helm-charts/releases/download/tigera-operator-1.2.1/tigera-operator-1.2.1.tgz
     version: 1.2.1
-  - apiVersion: v1
-    appVersion: 3.20.1
-    created: "2020-02-12T13:53:39.281098649Z"
-    description: Sonatype Nexus OSS is an open source repository manager
-    digest: 346f7043d16caadc71181cd29ed3af8e9994e4523e412395febc63493bae1f1b
-    home: https://www.sonatype.com/nexus-repository-oss
-    icon: http://www.sonatype.org/nexus/content/uploads/2015/06/Nexus-Logo.jpg
-    keywords:
-    - artifacts
-    - dependency
-    - management
-    - sonatype
-    - nexus
-    - repository
-    maintainers:
-    - email: steve.hipwell@github.com
-      name: stevehipwell
-    name: nexus3
-    sources:
-    - https://github.com/sonatype/docker-nexus3
-    - https://hub.docker.com/r/sonatype/nexus3
-    urls:
-    - https://github.com/stevehipwell/helm-charts/releases/download/nexus3-1.2.0/nexus3-1.2.0.tgz
-    version: 1.2.0
-  - apiVersion: v1
-    appVersion: 3.20.1
-    created: "2020-02-07T10:14:55.953882815Z"
-    description: Sonatype Nexus OSS is an open source repository manager
-    digest: 296da27830f8662f6da1582e3fcd5e63764cb5a0b3ddd64835fbb6b4f1f828b0
-    home: https://www.sonatype.com/nexus-repository-oss
-    icon: http://www.sonatype.org/nexus/content/uploads/2015/06/Nexus-Logo.jpg
-    keywords:
-    - artifacts
-    - dependency
-    - management
-    - sonatype
-    - nexus
-    - repository
-    maintainers:
-    - email: steve.hipwell@github.com
-      name: stevehipwell
-    name: nexus3
-    sources:
-    - https://github.com/sonatype/docker-nexus3
-    - https://hub.docker.com/r/sonatype/nexus3
-    urls:
-    - https://github.com/stevehipwell/helm-charts/releases/download/nexus3-1.1.0/nexus3-1.1.0.tgz
-    version: 1.1.0
-generated: "2020-02-07T10:14:55.429499178Z"
+generated: "2021-09-08T08:38:17.048341369Z"
